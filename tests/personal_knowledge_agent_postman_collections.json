@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "Personal Knowledge Agent API",
+    "_postman_id": "b7a3e2d7-fd53-4c7d-bd26-f8c13e95c8a7",
+    "description": "Postman collection for testing Personal Knowledge Agent API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8010/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8010",
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Chat Completion - Non-Streaming",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-4\",\n  \"messages\": [\n    {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\n    {\"role\": \"user\", \"content\": \"Hello, how are you?\"}\n  ],\n  \"max_tokens\": 512,\n  \"temperature\": 0.1,\n  \"stream\": false,\n  \"include_context\": false\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8010/v1/chat/completions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8010",
+          "path": ["v1", "chat", "completions"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Chat Completion - Streaming",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-4\",\n  \"messages\": [\n    {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\n    {\"role\": \"user\", \"content\": \"Tell me a joke.\"}\n  ],\n  \"max_tokens\": 512,\n  \"temperature\": 0.1,\n  \"stream\": true,\n  \"include_context\": false\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8010/v1/chat/completions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8010",
+          "path": ["v1", "chat", "completions"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Models",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8010/v1/models",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8010",
+          "path": ["v1", "models"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# FastAPI for backend API
+fastapi
+uvicorn[standard]
+
+# LangChain for LLM orchestration
+langchain
+langchain-community
+
+# OpenAI for LLM API
+openai
+
+# Pydantic for data validation
+pydantic
+pydantic-settings
+
+# Logging utilities
+python-dotenv
+loguru
+
+# Async support & HTTP requests
+httpx
+
+# Optional: streaming with SSE
+sse-starlette
+
+# Optional: for typing and development
+typing-extensions
