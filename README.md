@@ -112,7 +112,7 @@ Contributions are welcome! Please open issues or pull requests.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [APACHE LICENSE](LICENSE).
 
 ---
 
