@@ -19,6 +19,7 @@ from langchain.schema import (
 
 # Local imports
 from src.rag.loader import load_and_chunk_documents
+from src.utils.prompt_loader import PromptLoader
 from src.rag.embedder import DocumentEmbedder
 from src.rag.retriever import Retriever
 
@@ -40,6 +41,7 @@ class PersonalKnowledgeAgent:
         max_tokens: int = 512,
         stream: bool = False,
         rag_source_dir: str = None, 
+        prompt_name: str = "system",
     ):
         """
         Initializes the LLM agent.
@@ -55,6 +57,13 @@ class PersonalKnowledgeAgent:
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.client = AsyncOpenAI(api_key=settings.openai_api_key)
+        
+        # System prompt
+        prompt_loader = PromptLoader(base_path="prompts")
+        try:
+            self.system_prompt = prompt_loader.load_prompt(prompt_name)
+        except FileNotFoundError:
+            self.system_prompt = "You are a helpful AI assistant."  # fallback default
         
         # RAG
         self.rag_enabled = rag_source_dir is not None
@@ -129,6 +138,10 @@ class PersonalKnowledgeAgent:
         """
         try:
             chat_messages = self._convert_messages(messages)
+            
+            # Add system prompt as the very first message
+            if self.system_prompt:
+                chat_messages = [{"role": "system", "content": self.system_prompt}] + chat_messages
 
             if include_context :
                 user_message = next((m for m in reversed(chat_messages) if m["role"] == "user"), None)
